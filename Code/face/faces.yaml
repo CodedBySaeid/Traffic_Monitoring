@@ -1,0 +1,9 @@
+path: C:/Users/Saeid/Desktop/Projects/PYTHON_PROJECTS/Computer_Vision/traffic/Code/face/Data/Images  # root dataset folder
+train: C:/Users/Saeid/Desktop/Projects/PYTHON_PROJECTS/Computer_Vision/traffic/Code/face/Data/Images/Faces/train    # train images
+val: C:/Users/Saeid/Desktop/Projects/PYTHON_PROJECTS/Computer_Vision/traffic/Code/face/Data/Images/Faces/val        # validation images
+test: C:/Users/Saeid/Desktop/Projects/PYTHON_PROJECTS/Computer_Vision/traffic/Code/face/Data/Images/Faces/test      # optional test set
+
+names:
+  0: EYE
+  1: MOUTH
+  2: EAR

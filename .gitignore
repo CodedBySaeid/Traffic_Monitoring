@@ -1,0 +1,11 @@
+/Code/face/Data
+/Code/face/labelImg
+/Code/traffic/Data
+/etc
+/Include
+/Lib
+/runs
+/Scripts
+/share
+yolov8s.pt
+pyvenv.cfg

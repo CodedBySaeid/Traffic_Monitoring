@@ -1,0 +1,11 @@
+'''
+in the terminal, navigate to labelImg directory and type these commands:
+
+pyrcc5 -o libs/resources.py resources.qrc
+python labelImg.py
+
+
+labelImg interface will be opened
+set proper save format (yolo/pascal/voc)
+
+'''
