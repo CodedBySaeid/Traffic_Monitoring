@@ -1,0 +1,22 @@
+# ByteTrack tracker configuration (compatible with YOLOv8s)
+
+tracker_type: bytetrack
+
+# Detection-to-track association thresholds
+track_high_thresh: 0.35   # Default 0.25 — increase to strengthen initial matching
+track_low_thresh: 0.1     # Lower-tier matching threshold
+
+# Threshold for starting a brand-new track
+new_track_thresh: 0.3     # Default 0.25 — tweak to control new track creation
+
+# How long to keep missing tracks active (frame count)
+track_buffer: 1000          # Default 30 — increase to reduce ID drops in occlusion
+
+# Matching IoU threshold between detections and existing tracks
+match_thresh: 0.7         # Default 0.8 — lower to allow more jittery matches
+
+# Fuse detection confidence with IoU distance during matching
+fuse_score: True
+
+# Minimum box area to consider during tracking
+min_box_area: 10

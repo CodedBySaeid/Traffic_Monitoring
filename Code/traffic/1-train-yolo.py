@@ -9,7 +9,7 @@ model = YOLO("yolov8s.pt")
 
 model.train(
     data="Code/traffic/detrac.yaml",   # dataset config
-    epochs=20,            
+    epochs=10,            
     batch=16,             
     imgsz=640,            
     device="cpu"          # 0 for GPU, "cpu" for CPU

@@ -1,7 +1,7 @@
-path: C:/Users/Saeid/Desktop/Projects/PYTHON_PROJECTS/Computer_Vision/traffic/Code/traffic/Data/detrac2  # root dataset folder
-train: C:/Users/Saeid/Desktop/Projects/PYTHON_PROJECTS/Computer_Vision/traffic/Code/traffic/Data/detrac2/images/train    # train images
-val: C:/Users/Saeid/Desktop/Projects/PYTHON_PROJECTS/Computer_Vision/traffic/Code/traffic/Data/detrac2/images/val        # validation images
-test: C:/Users/Saeid/Desktop/Projects/PYTHON_PROJECTS/Computer_Vision/traffic/Code/traffic/Data/detrac2/images/test      # optional test set
+path: C:/Users/Saeid/Desktop/Projects/PYTHON_PROJECTS/Computer_Vision/cv/Code/traffic/Data/detrac2  # root dataset folder
+train: C:/Users/Saeid/Desktop/Projects/PYTHON_PROJECTS/Computer_Vision/cv/Code/traffic/Data/detrac2/images/train    # train images
+val: C:/Users/Saeid/Desktop/Projects/PYTHON_PROJECTS/Computer_Vision/cv/Code/traffic/Data/detrac2/images/val        # validation images
+test: C:/Users/Saeid/Desktop/Projects/PYTHON_PROJECTS/Computer_Vision/cv/Code/traffic/Data/detrac2/images/test      # optional test set
 
 names:
   0: OTHER
