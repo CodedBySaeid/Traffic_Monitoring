@@ -15,7 +15,7 @@ def ByteTracker():
 
     # Output video
     out = cv2.VideoWriter(
-        "average_velocity.mp4",
+        "average_velocity_test.mp4",
         cv2.VideoWriter_fourcc(*"XVID"),
         fps,
         (int(cap.get(3)), int(cap.get(4))),
@@ -30,8 +30,8 @@ def ByteTracker():
     unsafe_color = (0,0,255)
     
     # Define polygon points of the road region
-    roi_polygon = [(400, 300), (800, 300), (450, 150), (700, 150)]
-
+    roi_polygon = [(280, 600), (1100, 600), (570, 0), (500, 0)]
+    roi_pts = np.array([roi_polygon], dtype=np.int32)
 
     # Vehicle counts
     vehicle_counts = defaultdict(int)
@@ -46,12 +46,12 @@ def ByteTracker():
         ret, frame = cap.read()
         if not ret:
             break
-        # # Create mask
-        # mask = cv2.fillPoly(
-        #     np.zeros(frame.shape[:2], dtype=np.uint8), 
-        #     [np.array(roi_polygon, np.int32)], 
-        #     1
-        # )
+        # Create mask
+        mask = cv2.fillPoly(
+            np.zeros(frame.shape[:2], dtype=np.uint8), 
+            [np.array(roi_polygon, np.int32)], 
+            1
+        )
         frame_num += 1
 
         # Run YOLO tracking with ByteTrack
@@ -70,8 +70,8 @@ def ByteTracker():
             for box, track_id, cls in zip(boxes, ids, classes):
                 x1, y1, x2, y2 = map(int, box)
                 cx, cy = int((x1 + x2) / 2), int((y1 + y2) / 2)
-                # if mask[cy, cx] == 0:
-                #     continue  # skip detections outside highway
+                if mask[cy, cx] == 0:
+                    continue  # skip detections outside highway
                 class_name = class_names[cls]
 
                 # --- Line 1 (entry) ---
@@ -106,8 +106,12 @@ def ByteTracker():
 
         # Draw counting lines
         cv2.line(frame, (450, line_y1), (700, line_y1), (255, 255, 255), 2)
-        cv2.line(frame, (400, line_y2), (800, line_y2), (255, 255, 255), 2)
-
+        cv2.line(frame, (390, line_y2), (830, line_y2), (255, 255, 255), 2)
+        cv2.polylines(frame, [roi_pts], isClosed=True, color=(0, 255, 255), thickness=2)
+        overlay = frame.copy()
+        cv2.fillPoly(overlay, [roi_pts], (0, 255, 255))
+        alpha = 0.2  # Transparency factor
+        frame = cv2.addWeighted(overlay, alpha, frame, 1 - alpha, 0)
         # Show counts
         y_offset = 30
         for cls, count in vehicle_counts.items():
