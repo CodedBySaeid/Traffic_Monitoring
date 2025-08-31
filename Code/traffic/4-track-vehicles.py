@@ -156,10 +156,10 @@ def ByteTracker():
                 class_name = class_names[cls]
 
                 # Draw bounding box + ID
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                cv2.rectangle(frame, (x1, y1), (x2, y2), (250, 0, 50), 2)
                 cv2.putText(frame, f"{class_name} {track_id}",
                             (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX,
-                            0.6, (0, 255, 0), 2)
+                            0.6, (250, 0, 50), 2)
 
                 # --- Line crossing detection ---
                 if track_id in last_positions:
@@ -170,8 +170,8 @@ def ByteTracker():
                         duplicate = False
                         for (px, py, pclass, pf) in recent_counts:
                             if (pclass == class_name
-                                and abs(cx - px) < 50   # horizontal tolerance
-                                and abs(cy - py) < 50   # vertical tolerance
+                                and abs(cx - px) < 20   # horizontal tolerance
+                                and abs(cy - py) < 20   # vertical tolerance
                                 and frame_num - pf < 15):  # time window
                                 duplicate = True
                                 break
@@ -184,7 +184,7 @@ def ByteTracker():
                 last_positions[track_id] = cy
 
         # Draw counting line
-        cv2.line(frame, (0, count_line_y), (frame.shape[1], count_line_y),
+        cv2.line(frame, (350, count_line_y), (925, count_line_y),
                 (0, 0, 255), 2)
 
         # Show counts

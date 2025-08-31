@@ -10,7 +10,5 @@
 yolov8s.pt
 pyvenv.cfg
 
-detrac.gif
-detrac.mp4
-output_counted.mp4
-output.mp4
+*.mp4
+*.gif
