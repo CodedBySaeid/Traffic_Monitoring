@@ -7,8 +7,8 @@
 /runs
 /Scripts
 /share
-/Output
-yolov8s.pt
+/Vids
+*.pt
 pyvenv.cfg
 
 *.mp4
