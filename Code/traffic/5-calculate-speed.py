@@ -1,3 +1,13 @@
+'''
+This code calculates average speed of vehicles between two lines.
+
+'''
+
+from lib2to3.pgen2.token import VBAR
+from tabnanny import verbose
+from turtle import speed
+
+
 def ByteTracker():
     import cv2
     from ultralytics import YOLO
@@ -8,24 +18,24 @@ def ByteTracker():
     class_names = model.model.names
 
     # Video path
-    video_path = "detrac.mp4"
+    video_path = "Code/traffic/Data/detrac.mp4"
     cap = cv2.VideoCapture(video_path)
 
     fps = cap.get(cv2.CAP_PROP_FPS)
 
     # Output video
     out = cv2.VideoWriter(
-        "average_velocity_test.mp4",
+        "average_velocity_gpu.mp4",
         cv2.VideoWriter_fourcc(*"XVID"),
         fps,
         (int(cap.get(3)), int(cap.get(4))),
     )
 
-    # Two horizontal lines (adjust as needed)
     line_y1 = 150  # entry line
     line_y2 = 300  # exit line
     real_distance_m = 20.0  # real-world distance between the lines
 
+    default_color = (255,255,255)
     safe_color = (0,255,0)
     unsafe_color = (0,0,255)
     
@@ -59,7 +69,8 @@ def ByteTracker():
             frame,
             persist=True,
             conf=0.25,
-            tracker="Code/traffic/mybytetrack.yaml"
+            tracker="Code/traffic/mybytetrack.yaml",
+            verbose=False
         )
 
         if results[0].boxes.id is not None:
@@ -91,13 +102,15 @@ def ByteTracker():
                             vehicle_counts[class_name] += 1
 
 
-                color = safe_color
+                color = default_color
                 # --- Draw bounding box ---
                 label = f"{class_name} {track_id}"
                 if track_id in speeds:
                     label += f" {speeds[track_id]:.1f} km/h"
                     if speeds[track_id] > 60:
                         color = unsafe_color
+                    else:
+                        color = safe_color
                         
                 
                 cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
@@ -105,12 +118,12 @@ def ByteTracker():
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
 
         # Draw counting lines
-        cv2.line(frame, (450, line_y1), (700, line_y1), (255, 255, 255), 2)
-        cv2.line(frame, (390, line_y2), (830, line_y2), (255, 255, 255), 2)
-        cv2.polylines(frame, [roi_pts], isClosed=True, color=(0, 255, 255), thickness=2)
+        cv2.line(frame, (445, line_y1), (700, line_y1), (255, 255, 255), 1)
+        cv2.line(frame, (390, line_y2), (830, line_y2), (255, 255, 255), 1)
+        cv2.polylines(frame, [roi_pts], isClosed=True, color=(0, 255, 255), thickness=1)
         overlay = frame.copy()
         cv2.fillPoly(overlay, [roi_pts], (0, 255, 255))
-        alpha = 0.2  # Transparency factor
+        alpha = 0.1  # Transparency factor
         frame = cv2.addWeighted(overlay, alpha, frame, 1 - alpha, 0)
         # Show counts
         y_offset = 30
@@ -131,6 +144,23 @@ def ByteTracker():
     cv2.destroyAllWindows()
 
     print("Final counts:", dict(vehicle_counts))
+    total = 0
+
+    for v in vehicle_counts:
+        total += vehicle_counts[v]
+    q = total*60
+
+    speeds_list = []
+    for s in speeds:
+        speeds_list.append(speeds[s])
+
+    v_bar = np.mean(speeds_list)
+
+
+    print(f"Traffic flow: {q} veh/hr")
+    print(f"Velocity mean: {v_bar} km/hr")
+    print(f"Traffic density: {q/v_bar} veh/km")
+
 
 
 

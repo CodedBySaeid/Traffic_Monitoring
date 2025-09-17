@@ -1,13 +1,13 @@
+'''
+This code uses built it bytetracker to track objects. then counts number of passing vehicles.
 
-
-from typing import Set
-
+'''
 
 def SortTracker():
     """
     from ultralytics import YOLO
     import cv2
-
+    from typing import Set
     import numpy as np
     from sort import Sort # pip install sort-tracker (needs visual studio)
 
@@ -96,13 +96,13 @@ def ByteTracker():
     from collections import defaultdict
 
     # Load YOLOv8 model (replace with your trained weights if needed)
-    model = YOLO("runs/detect/train4/weights/best.pt") # or "best.pt" if you trained your own
+    model = YOLO("runs/detect/train10/weights/best.pt") # or "best.pt" if you trained your own
 
     # Class names (COCO dataset default, replace if you trained custom classes)
     class_names = model.model.names
 
     # Video path
-    video_path = "detrac.mp4"
+    video_path = "Code/traffic/Data/detrac.mp4"
     cap = cv2.VideoCapture(video_path)
 
     # Output video (optional)

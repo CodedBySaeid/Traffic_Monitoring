@@ -1,6 +1,10 @@
+'''
+This code shows how to use the trained model in first file to detect objects.
+
+'''
 from ultralytics import YOLO
 
-model = YOLO("runs/detect/train4/weights/best.pt")
+model = YOLO("runs/detect/train10/weights/best.pt")
 
 # Run prediction on a video
 results = model.predict(

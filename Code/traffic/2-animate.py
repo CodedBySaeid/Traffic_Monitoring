@@ -1,3 +1,8 @@
+'''
+Since we want to analyze video, this code attach pictures to create a video.
+
+'''
+
 from pickletools import optimize
 from PIL import Image
 import os
