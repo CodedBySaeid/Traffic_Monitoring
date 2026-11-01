@@ -4,7 +4,7 @@ A computer vision pipeline for traffic monitoring that detects vehicles, tracks 
 
 The system is built on **YOLOv8** for object detection and **ByteTrack** for multi-object tracking.
 
-[Vehicle Detection & Speed Estimation](./Rec%200040.mp4)
+![Vehicle Detection & Speed Estimation](./Rec%200040.mp4)
 
 ---
 
